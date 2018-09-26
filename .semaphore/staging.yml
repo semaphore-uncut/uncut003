@@ -1,16 +1,13 @@
 version: v1.0
-name: Build & test
+name: Staging deployment pipeline
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 
 blocks:
-  - name: "Build"
+  - name: Deploy
     task:
-      env_vars:
-        - name: APP_ENV
-          value: prod
       jobs:
       - name: Docker build
         commands:
@@ -19,8 +16,3 @@ blocks:
           - echo $APP_ENV
           - echo "Docker build..."
           - echo "done"
-promotions:
-  - name: Staging
-    pipeline_file: staging.yml
-  - name: Production
-    pipeline_file: prod.yml
